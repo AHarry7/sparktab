@@ -1,12 +1,9 @@
-// import GPT from "./components/gpt";
-// import AskGpt from "./components/AskGpt";
-import GoalCompletion from "./components/GoalCompletion";
-import HeroSection from "./components/HeroSection";
-import Navbar from "./components/Navbar";
-import GoalCard from "./components/GoalCard";
-import ConfettiExplosion from "react-confetti-explosion";
 import { useEffect, useState } from "react";
-// import { SparklesPreview } from "./components/spark";
+import GoalCard from "./components/GoalCard";
+import GoalCompletion from "./components/GoalCompletion";
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const App = () => {
   const [dailyActions, setDailyActions] = useState(null);
@@ -16,12 +13,16 @@ const App = () => {
   const [isExploding, setIsExploding] = useState(false);
 
   useEffect(() => {
+    // Load daily actions from local storage
     const storedActions = localStorage.getItem("dailyActions");
+    const storedCheckedSteps = localStorage.getItem("checkedSteps");
+    const storedCompletedDays = localStorage.getItem("completedDays");
+
     if (storedActions) {
       const goal = JSON.parse(storedActions);
       setDailyActions(goal);
 
-      // Initialize `checkedSteps` array based on total steps
+      // Initialize checkedSteps array based on total steps
       const totalSteps = goal.week.reduce(
         (total, week) =>
           total +
@@ -30,7 +31,21 @@ const App = () => {
       );
       setCheckedSteps(Array(totalSteps).fill(false));
     }
+
+    if (storedCheckedSteps) {
+      setCheckedSteps(JSON.parse(storedCheckedSteps));
+    }
+
+    if (storedCompletedDays) {
+      setCompletedDays(JSON.parse(storedCompletedDays));
+    }
   }, []);
+
+  // Save state to local storage whenever checkedSteps or completedDays change
+  useEffect(() => {
+    localStorage.setItem("checkedSteps", JSON.stringify(checkedSteps));
+    localStorage.setItem("completedDays", JSON.stringify(completedDays));
+  }, [checkedSteps, completedDays]);
 
   // Handle checkbox change
   const handleCheckboxChange = (index) => {
@@ -62,7 +77,6 @@ const App = () => {
 
       setCompletedDays(newCompletedDays);
     }
-    // Trigger confetti
     if (updatedCheckedSteps[index]) {
       // Only trigger confetti on checking the box
       setIsExploding(true);
