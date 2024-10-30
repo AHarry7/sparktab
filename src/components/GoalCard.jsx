@@ -23,7 +23,7 @@ const GoalCard = ({ goal, checkedSteps, handleCheckboxChange, progress }) => {
               className="carousel-item p-4 bg-[#f2f2f2] dark:bg-[#2a303c] rounded-lg w-full max-w-lg"
             >
               <div className="flex flex-col">
-                <p className="font-semibold text-gray-800 dark:text-gray-300">
+                <p className="font-semibold text-gray-800 dark:text-gray-300 ml-5">
                   Day {day.day}
                 </p>
                 <ul className="ml-4 mt-3 space-y-2 text-gray-800 dark:text-gray-400">

@@ -4,6 +4,7 @@ import GoalCompletion from "./components/GoalCompletion";
 import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import GoalCard from "./components/GoalCard";
+import ConfettiExplosion from "react-confetti-explosion";
 import { useEffect, useState } from "react";
 // import { SparklesPreview } from "./components/spark";
 
@@ -12,6 +13,7 @@ const App = () => {
   const [checkedSteps, setCheckedSteps] = useState([]);
   const [completedDays, setCompletedDays] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [isExploding, setIsExploding] = useState(false);
 
   useEffect(() => {
     const storedActions = localStorage.getItem("dailyActions");
@@ -60,11 +62,21 @@ const App = () => {
 
       setCompletedDays(newCompletedDays);
     }
+    // Trigger confetti
+    if (updatedCheckedSteps[index]) {
+      // Only trigger confetti on checking the box
+      setIsExploding(true);
+      setTimeout(() => {
+        setIsExploding(false);
+      }, 2000); // Reset the confetti effect after 2 seconds
+    }
   };
 
   return (
     <div className="flex flex-col h-screen items-center w-full bg-[#f2f2f2] dark:bg-[#242933] overflow-hidden">
       <Navbar />
+
+      {isExploding && <ConfettiExplosion />}
       <div className="flex h-screen justify-evenly w-full items-center">
         {dailyActions ? (
           <>
