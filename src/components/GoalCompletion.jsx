@@ -19,11 +19,12 @@ const GoalCompletion = ({ completedDays }) => {
   };
 
   // Calculate check-ins
-  const checkIns = completedDays?.length;
+  const checkIns = completedDays?.length || 0; // Default to 0 if completedDays is undefined or null
 
   // Calculate consistency percentage
   const totalDays = 7; // Assuming a week
-  const consistency = ((checkIns / totalDays) * 100).toFixed(0) + "%";
+  const consistency =
+    totalDays > 0 ? ((checkIns / totalDays) * 100).toFixed(0) + "%" : "0%";
 
   // Get the current streak
   const streak = calculateStreak(completedDays);
