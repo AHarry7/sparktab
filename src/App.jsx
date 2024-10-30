@@ -17,6 +17,7 @@ const App = () => {
     const storedActions = localStorage.getItem("dailyActions");
     const storedCheckedSteps = localStorage.getItem("checkedSteps");
     const storedCompletedDays = localStorage.getItem("completedDays");
+    const storedProgress = localStorage.getItem("progress");
 
     if (storedActions) {
       const goal = JSON.parse(storedActions);
@@ -39,13 +40,17 @@ const App = () => {
     if (storedCompletedDays) {
       setCompletedDays(JSON.parse(storedCompletedDays));
     }
+    if (storedProgress) {
+      setProgress(JSON.parse(storedProgress));
+    }
   }, []);
 
   // Save state to local storage whenever checkedSteps or completedDays change
   useEffect(() => {
     localStorage.setItem("checkedSteps", JSON.stringify(checkedSteps));
     localStorage.setItem("completedDays", JSON.stringify(completedDays));
-  }, [checkedSteps, completedDays]);
+    localStorage.setItem("progress", JSON.stringify(progress));
+  }, [checkedSteps, completedDays, progress]);
 
   // Handle checkbox change
   const handleCheckboxChange = (index) => {
