@@ -99,6 +99,7 @@ No additional explanations, introductions, or text outside of the object.`;
           console.log("Parsed Goal Plan:", parsedGoalPlan);
           setDailyActions(parsedGoalPlan);
           localStorage.setItem("dailyActions", JSON.stringify(parsedGoalPlan));
+          closeModal();
         } catch (parseError) {
           console.error("Failed to parse JSON:", parseError);
           setError("Error parsing plan data.");
