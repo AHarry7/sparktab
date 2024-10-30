@@ -146,7 +146,7 @@ No additional explanations, introductions, or text outside of the object.`;
 
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
-        <div className="mt-6 space-y-4 bg-red-500">
+        {/* <div className="mt-6 space-y-4 bg-red-500">
           {dailyActions?.week[0].days?.map((day) => (
             <div
               key={day?.day}
@@ -164,7 +164,7 @@ No additional explanations, introductions, or text outside of the object.`;
               </ul>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
