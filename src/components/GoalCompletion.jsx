@@ -1,7 +1,34 @@
-/* eslint-disable react/prop-types */
+import React from "react";
 
 const GoalCompletion = ({ completedDays }) => {
   const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
+
+  // Calculate the streak
+  const calculateStreak = (completedDays) => {
+    let maxStreak = 0;
+    let currentStreak = 0;
+
+    for (let i = 0; i < 7; i++) {
+      if (completedDays?.includes(i)) {
+        currentStreak++;
+      } else {
+        maxStreak = Math.max(maxStreak, currentStreak);
+        currentStreak = 0;
+      }
+    }
+    maxStreak = Math.max(maxStreak, currentStreak); // Final check for the current streak
+    return maxStreak;
+  };
+
+  // Calculate check-ins
+  const checkIns = completedDays?.length;
+
+  // Calculate consistency percentage
+  const totalDays = 7; // Assuming a week
+  const consistency = ((checkIns / totalDays) * 100).toFixed(0) + "%";
+
+  // Get the current streak
+  const streak = calculateStreak(completedDays);
 
   return (
     <div className="bg-white dark:bg-[#2a303c] h-56 rounded-2xl shadow-md p-6 w-full max-w-md">
@@ -18,13 +45,13 @@ const GoalCompletion = ({ completedDays }) => {
       <div className="flex justify-between mb-6">
         <div className="text-center">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
-            3
+            {streak}
           </p>
           <p className="text-sm text-gray-800 dark:text-gray-400">Streak</p>
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
-            100%
+            {consistency}
           </p>
           <p className="text-sm text-gray-800 dark:text-gray-400">
             Consistency
@@ -32,7 +59,7 @@ const GoalCompletion = ({ completedDays }) => {
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
-            1
+            {checkIns}
           </p>
           <p className="text-sm text-gray-800 dark:text-gray-400">Check-ins</p>
         </div>
