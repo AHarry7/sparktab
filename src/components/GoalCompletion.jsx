@@ -1,5 +1,3 @@
-import React from "react";
-
 const GoalCompletion = ({ completedDays }) => {
   const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
 
