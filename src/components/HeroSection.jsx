@@ -38,6 +38,11 @@ const GoalSettingModal = ({ closeModal }) => {
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
   const handleGoalSubmit = async () => {
+    if (goal.trim() === "") {
+      setError("Please enter a goal before proceeding.");
+      return; // Exit the function early if goal is empty
+    }
+
     setLoading(true);
     setError("");
     const prompt = `Create a daily action plan for the following goal: "${goal}". Provide your response *only* as a valid JSON object, exactly in this format:
@@ -145,26 +150,6 @@ No additional explanations, introductions, or text outside of the object.`;
         </button>
 
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
-
-        {/* <div className="mt-6 space-y-4 bg-red-500">
-          {dailyActions?.week[0].days?.map((day) => (
-            <div
-              key={day?.day}
-              className="bg-gray-100 p-4 rounded-lg shadow-md"
-            >
-              <h3 className="text-lg font-semibold text-gray-700">
-                Day {day?.day}
-              </h3>
-              <ul className="mt-2 space-y-2">
-                {day?.steps?.map((step, index) => (
-                  <li key={index} className="text-gray-600">
-                    {step}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div> */}
       </div>
     </div>
   );
