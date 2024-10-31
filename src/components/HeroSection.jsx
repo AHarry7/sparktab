@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Main Hero Section Component
 // eslint-disable-next-line react/prop-types
@@ -41,6 +41,14 @@ const GoalSettingModal = ({ closeModal, setDailyActions }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  const [loadingMessage, setLoadingMessage] = useState(
+    "Weeklifying your goal..."
+  );
+  const messages = [
+    "Weeklifying your goal...",
+    "Breaking it down into actions...",
+    "Almost done...",
+  ];
 
   const handleGoalSubmit = async () => {
     if (goal.trim() === "") {
@@ -135,6 +143,18 @@ No additional explanations, introductions, or text outside of the object.`;
     }
   };
 
+  useEffect(() => {
+    if (loading) {
+      let index = 0;
+      const intervalId = setInterval(() => {
+        setLoadingMessage(messages[index]);
+        index = (index + 1) % messages.length;
+      }, 2000); // Change messages every 2 seconds
+
+      return () => clearInterval(intervalId);
+    }
+  }, [loading]);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg w-11/12 md:w-2/3 lg:w-1/2 max-w-2xl animate-fade-in">
@@ -167,7 +187,7 @@ No additional explanations, introductions, or text outside of the object.`;
           className="w-full bg-green-500 text-white py-3 rounded-md hover:bg-green-600 transition mt-4"
           disabled={loading}
         >
-          {loading ? "Weeklifying your goal..." : "Weeklify"}
+          {loading ? loadingMessage : "Weeklify"}
         </button>
 
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
