@@ -4,6 +4,7 @@ import GoalCompletion from "./components/GoalCompletion";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection"; // Import HeroSection correctly
 import ConfettiExplosion from "react-confetti-explosion";
+import GoalCompletionStatic from "./components/GoalCompletionStatic";
 
 const App = () => {
   const [dailyActions, setDailyActions] = useState(null);
@@ -179,7 +180,7 @@ const App = () => {
         ) : (
           <>
             <HeroSection setDailyActions={setDailyActions} />
-            <GoalCompletion />
+            <GoalCompletionStatic />
           </>
         )}
       </div>
