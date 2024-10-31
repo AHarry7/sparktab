@@ -1,19 +1,40 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line react/prop-types
-const GoalCard = ({ goal, checkedSteps, handleCheckboxChange, progress }) => {
+// eslint-disable-next-line react/prop-types
+// eslint-disable-next-line react/prop-types
+import { TrashIcon } from "@heroicons/react/24/outline";
+
+/* eslint-disable react/prop-types */
+const GoalCard = ({
+  goal,
+  checkedSteps,
+  handleCheckboxChange,
+  progress,
+  onDelete,
+}) => {
   return (
-    <div className="p-4 flex flex-col items-start max-w-2xl shadow-md bg-white dark:bg-[#2a303c] min-h-36 rounded-2xl">
+    <div className="p-4 flex flex-col items-start max-w-2xl shadow-md bg-white dark:bg-[#2a303c] min-h-36 rounded-2xl relative">
       <h1 className="text-3xl font-bold text-gray-800 mx-auto dark:text-gray-300">
         {goal.goalName}
       </h1>
-      <p className="text-gray-400 mt-3 mx-auto">
+
+      {/* Delete Icon */}
+      <button
+        onClick={onDelete}
+        className="absolute top-4 right-4 p-1 rounded-full text-gray-500 hover:text-red-600 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+        aria-label="Delete Goal"
+      >
+        <TrashIcon className="h-6 w-6" />
+      </button>
+
+      <p className=" text-gray-800 dark:text-gray-300 mt-3 mx-auto">
         Progress: {Math.round(progress)}% Complete
       </p>
       <div
         className="bg-green-500 h-2 w-full max-w-2xl mt-3 rounded-full"
         style={{ width: `${progress}%` }}
       />
-      <p className="mt-4 mb-0 text-center text-pretty mx-auto text-md">
+      <p className="mt-4 mb-0 text-center text-pretty mx-auto text-md text-gray-800 dark:text-gray-300">
         {goal.desc}
       </p>
 
