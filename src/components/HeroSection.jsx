@@ -1,7 +1,9 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 // Main Hero Section Component
-const HeroSection = () => {
+// eslint-disable-next-line react/prop-types
+const HeroSection = ({ setDailyActions }) => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => setShowModal(!showModal);
@@ -22,7 +24,13 @@ const HeroSection = () => {
       >
         START MY JOURNEY
       </button>
-      {showModal && <GoalSettingModal closeModal={toggleModal} />}
+      {showModal && (
+        <GoalSettingModal
+          closeModal={toggleModal}
+          setDailyActions={setDailyActions}
+        />
+      )}
+      <Toaster />
     </div>
   );
 };
@@ -30,9 +38,8 @@ const HeroSection = () => {
 // Goal Setting Modal Component
 
 // eslint-disable-next-line react/prop-types
-const GoalSettingModal = ({ closeModal }) => {
+const GoalSettingModal = ({ closeModal, setDailyActions }) => {
   const [goal, setGoal] = useState("");
-  const [dailyActions, setDailyActions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
@@ -100,22 +107,22 @@ No additional explanations, introductions, or text outside of the object.`;
           setDailyActions(parsedGoalPlan);
           localStorage.setItem("dailyActions", JSON.stringify(parsedGoalPlan));
           // Initialize checkedSteps based on the number of steps
-          const totalSteps = parsedGoalPlan.week.reduce(
-            (total, week) =>
-              total +
-              week.days.reduce(
-                (dayTotal, day) => dayTotal + day.steps.length,
-                0
-              ),
-            0
-          );
-          const initialCheckedSteps = Array(totalSteps).fill(false);
-          localStorage.setItem(
-            "checkedSteps",
-            JSON.stringify(initialCheckedSteps)
-          ); // Save initial state
-
-          closeModal();
+          // const totalSteps = parsedGoalPlan.week.reduce(
+          //   (total, week) =>
+          //     total +
+          //     week.days.reduce(
+          //       (dayTotal, day) => dayTotal + day.steps.length,
+          //       0
+          //     ),
+          //   0
+          // );
+          // const initialCheckedSteps = Array(totalSteps).fill(false);
+          // localStorage.setItem(
+          //   "checkedSteps",
+          //   JSON.stringify(initialCheckedSteps)
+          // ); // Save initial state
+          toast.success("Goal weeklified successfully!");
+          // closeModal();
         } catch (parseError) {
           console.error("Failed to parse JSON:", parseError);
           setError("Error parsing plan data.");
