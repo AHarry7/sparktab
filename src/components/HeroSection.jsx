@@ -10,8 +10,8 @@ const HeroSection = ({ setDailyActions }) => {
   return (
     <div className="flex flex-col border-1 items-start my-auto justify-center bg-[#f2f2f2] dark:bg-[#242933] text-start">
       <h1 className="min-w-full text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-        <span className="text-green-500">Upgrade your</span> <br />
-        <span className="text-gray-800 dark:text-gray-300">life with AI</span>
+        <span className="text-green-500">Turning Goals</span> <br />
+        <span className="text-gray-800 dark:text-gray-300">into daily win</span>
       </h1>
 
       <p className="text-lg md:text-xl text-gray-800 dark:text-gray-400 max-w-md mb-8">
