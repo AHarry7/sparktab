@@ -99,6 +99,21 @@ No additional explanations, introductions, or text outside of the object.`;
           console.log("Parsed Goal Plan:", parsedGoalPlan);
           setDailyActions(parsedGoalPlan);
           localStorage.setItem("dailyActions", JSON.stringify(parsedGoalPlan));
+          // Initialize checkedSteps based on the number of steps
+          const totalSteps = parsedGoalPlan.week.reduce(
+            (total, week) =>
+              total +
+              week.days.reduce(
+                (dayTotal, day) => dayTotal + day.steps.length,
+                0
+              ),
+            0
+          );
+          const initialCheckedSteps = Array(totalSteps).fill(false);
+          localStorage.setItem(
+            "checkedSteps",
+            JSON.stringify(initialCheckedSteps)
+          ); // Save initial state
 
           closeModal();
         } catch (parseError) {

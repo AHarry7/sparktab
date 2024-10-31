@@ -52,36 +52,46 @@ const App = () => {
     localStorage.setItem("progress", JSON.stringify(progress));
   }, [checkedSteps, completedDays, progress]);
 
-  // Handle checkbox change
   const handleCheckboxChange = (index) => {
     const updatedCheckedSteps = [...checkedSteps];
     updatedCheckedSteps[index] = !updatedCheckedSteps[index];
     setCheckedSteps(updatedCheckedSteps);
 
-    // Calculate progress
+    // Calculate total steps
+    const totalSteps = dailyActions.week.reduce(
+      (total, week) =>
+        total +
+        week.days.reduce((dayTotal, day) => dayTotal + day.steps.length, 0),
+      0
+    );
+
+    // Calculate completed steps
     const completedSteps = updatedCheckedSteps.filter(
       (checked) => checked
     ).length;
-    const newProgress = (completedSteps / updatedCheckedSteps.length) * 100;
+    const newProgress = (completedSteps / totalSteps) * 100; // Correctly calculate progress
     setProgress(newProgress);
 
     // Calculate completed days
-    if (dailyActions) {
-      const newCompletedDays = dailyActions.week.flatMap((week, weekIndex) =>
-        week.days
-          .map((day, dayIndex) => {
-            const daySteps = day.steps.length;
-            const startIndex = weekIndex * 7 + dayIndex * daySteps;
-            const allStepsChecked = updatedCheckedSteps
-              .slice(startIndex, startIndex + daySteps)
-              .every((checked) => checked);
-            return allStepsChecked ? dayIndex + weekIndex * 7 : null;
-          })
-          .filter((dayIndex) => dayIndex !== null)
-      );
+    const newCompletedDays = [];
+    dailyActions.week.forEach((week, weekIndex) => {
+      week.days.forEach((day, dayIndex) => {
+        const daySteps = day.steps.length;
+        const startIndex = (weekIndex * 7 + dayIndex) * daySteps; // Adjust index calculation
+        const allStepsChecked = updatedCheckedSteps
+          .slice(startIndex, startIndex + daySteps)
+          .every((checked) => checked);
 
-      setCompletedDays(newCompletedDays);
-    }
+        // Only add to completed days if all steps for that day are checked
+        if (allStepsChecked) {
+          newCompletedDays.push(dayIndex + weekIndex * 7); // Push the day index
+        }
+      });
+    });
+
+    // Update completed days state
+    setCompletedDays(newCompletedDays);
+
     if (updatedCheckedSteps[index]) {
       // Only trigger confetti on checking the box
       setIsExploding(true);
