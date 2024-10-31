@@ -154,6 +154,7 @@ const App = () => {
     localStorage.removeItem("checkedSteps");
     localStorage.removeItem("completedDays");
     localStorage.removeItem("progress");
+    setIsModalOpen(false);
   };
 
   const closeModal = () => setIsModalOpen(false);
