@@ -2,18 +2,20 @@
 // eslint-disable-next-line react/prop-types
 const GoalCard = ({ goal, checkedSteps, handleCheckboxChange, progress }) => {
   return (
-    <div className="p-4 flex flex-col items-center max-w-2xl shadow-md bg-white dark:bg-[#2a303c] min-h-36 rounded-2xl">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-300">
+    <div className="p-4 flex flex-col items-start max-w-2xl shadow-md bg-white dark:bg-[#2a303c] min-h-36 rounded-2xl">
+      <h1 className="text-3xl font-bold text-gray-800 mx-auto dark:text-gray-300">
         {goal.goalName}
       </h1>
-      <p className="text-gray-400 mt-3">
+      <p className="text-gray-400 mt-3 mx-auto">
         Progress: {Math.round(progress)}% Complete
       </p>
       <div
         className="bg-green-500 h-2 w-full max-w-2xl mt-3 rounded-full"
         style={{ width: `${progress}%` }}
       />
-      <p className="mt-4 mb-0 text-center text-pretty text-md">{goal.desc}</p>
+      <p className="mt-4 mb-0 text-center text-pretty mx-auto text-md">
+        {goal.desc}
+      </p>
 
       <div className="carousel carousel-center max-w-lg p-4 space-x-4">
         {goal.week.map((week, weekIndex) =>

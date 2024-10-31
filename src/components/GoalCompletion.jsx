@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const GoalCompletion = ({ completedDays }) => {
   const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
 
@@ -30,25 +31,26 @@ const GoalCompletion = ({ completedDays }) => {
   const streak = calculateStreak(completedDays);
 
   return (
-    <div className="bg-white dark:bg-[#2a303c] h-56 rounded-2xl shadow-md p-6 w-full max-w-md">
+    <div className="bg-white dark:bg-[#2a303c] h-64 rounded-2xl shadow-md p-6 w-full max-w-md">
       <div className="flex justify-between items-center mb-5">
         <div className="flex items-center">
-          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-300">
-            Consistency
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-300">
+            Progress
           </h2>
         </div>
         <span className="text-2xl mr-2" role="img" aria-label="Workout">
           🎯
         </span>
       </div>
-      <div className="flex justify-between mb-6">
-        <div className="text-center">
+
+      <div className="flex justify-between mb-7">
+        <div className="text-center space-y-1">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
             {streak}
           </p>
           <p className="text-sm text-gray-800 dark:text-gray-400">Streak</p>
         </div>
-        <div className="text-center">
+        <div className="text-center space-y-1">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
             {consistency}
           </p>
@@ -56,13 +58,14 @@ const GoalCompletion = ({ completedDays }) => {
             Consistency
           </p>
         </div>
-        <div className="text-center">
+        <div className="text-center space-y-1">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-300">
             {checkIns}
           </p>
           <p className="text-sm text-gray-800 dark:text-gray-400">Check-ins</p>
         </div>
       </div>
+
       <div className="mb-4">
         <div className="grid grid-cols-7 gap-1 mb-2">
           {dayLabels.map((label, index) => (
