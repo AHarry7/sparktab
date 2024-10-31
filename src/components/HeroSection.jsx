@@ -1,5 +1,4 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
 // Main Hero Section Component
 // eslint-disable-next-line react/prop-types
@@ -30,7 +29,6 @@ const HeroSection = ({ setDailyActions }) => {
           setDailyActions={setDailyActions}
         />
       )}
-      <Toaster />
     </div>
   );
 };
@@ -121,7 +119,6 @@ No additional explanations, introductions, or text outside of the object.`;
           //   "checkedSteps",
           //   JSON.stringify(initialCheckedSteps)
           // ); // Save initial state
-          toast.success("Goal weeklified successfully!");
           // closeModal();
         } catch (parseError) {
           console.error("Failed to parse JSON:", parseError);
