@@ -85,7 +85,7 @@ const GoalCompletion = ({ completedDays }) => {
             {completedDays?.includes(i) ? (
               <div className="h-4 w-4 bg-green-500 rounded" />
             ) : (
-              <div className="h-4 w-4 border border-gray-400 dark:border-gray-300 rounded" />
+              <div className="h-4 w-4 bg-[#e5e6e6] dark:bg-gray-600 rounded" />
             )}
           </div>
         ))}
